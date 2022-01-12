@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 
 
 public interface UserService {
-    ResponseEntity<Message> getUserList(Long id);
+    ResponseEntity<Message> getUserList(Long id) throws Exception;
 
     ResponseEntity<Message> saveUser();
 

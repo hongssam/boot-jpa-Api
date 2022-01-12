@@ -14,7 +14,7 @@ public class UserController {
     UserService userService;
 
     @RequestMapping(method = RequestMethod.GET, value = "/list/{id}")
-    public ResponseEntity<Message> getUserList(@PathVariable Long id){
+    public ResponseEntity<Message> getUserList(@PathVariable Long id) throws Exception {
 
         return userService.getUserList(id);
     }

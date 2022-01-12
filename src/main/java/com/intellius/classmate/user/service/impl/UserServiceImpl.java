@@ -17,26 +17,22 @@ public class UserServiceImpl implements UserService {
     UserRepository userRepository;
 
     @Override
-    public ResponseEntity<Message> getUserList(Long id) {
-        try{
-            Optional<User> user = userRepository.findById(id);
+    public ResponseEntity<Message> getUserList(Long id) throws Exception{
 
-            Message message;
+        Optional<User> user = userRepository.findById(id);
+        Message message;
 
-            if(user.isPresent()){
-                message = Message.builder().data(user).message("조회 성공").build();
-                return new ResponseEntity<>(message, HttpStatus.OK);
-            }else{
-                message = Message.builder().data(user).message("존재하지 않는 사용자").build();
-                return new ResponseEntity<>(message, HttpStatus.NO_CONTENT);
-            }
-
-        }catch(Exception e){
-            e.toString();
-            Message message = Message.builder().data(null).message("호출 실패").build();
-
-            return new ResponseEntity<>(message, HttpStatus.INTERNAL_SERVER_ERROR);
+        if(id == Long.valueOf(1)){
+            System.out.println("id = " + id);
+            throw new Exception();
         }
+
+        if(!user.isPresent()) {
+            throw new NullPointerException();
+        }
+
+        message = Message.builder().data(user).message("조회 성공").build();
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
     @Override
