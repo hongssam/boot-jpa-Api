@@ -1,13 +1,15 @@
 package com.intellius.classmate.user.service;
 
-import com.intellius.classmate.apiResponse.Message;
-import org.springframework.http.ResponseEntity;
+import com.intellius.classmate.user.entity.User;
+
+import java.util.List;
+import java.util.Optional;
 
 
 public interface UserService {
-    ResponseEntity<Message> getUserList(Long id) throws Exception;
+    Optional<User> getUser(Long id) throws Exception;
 
-    ResponseEntity<Message> saveUser();
+    User saveUser() throws Exception;
 
-    ResponseEntity<Message> allUserList();
+    List<User> allUserList() throws Exception;
 }

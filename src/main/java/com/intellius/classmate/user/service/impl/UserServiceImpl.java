@@ -1,14 +1,13 @@
 package com.intellius.classmate.user.service.impl;
 
-import com.intellius.classmate.apiResponse.Message;
 import com.intellius.classmate.user.entity.User;
 import com.intellius.classmate.user.repository.UserRepository;
 import com.intellius.classmate.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.security.auth.message.AuthException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,47 +16,33 @@ public class UserServiceImpl implements UserService {
     UserRepository userRepository;
 
     @Override
-    public ResponseEntity<Message> getUserList(Long id) throws Exception{
-
-        Optional<User> user = userRepository.findById(id);
-        Message message;
+    public Optional<User> getUser(Long id) throws Exception{
 
         if(id == Long.valueOf(1)){
-            System.out.println("id = " + id);
-            throw new Exception();
+            throw new AuthException();
         }
+
+        Optional<User> user = userRepository.findById(id);
 
         if(!user.isPresent()) {
             throw new NullPointerException();
         }
 
-        message = Message.builder().data(user).message("조회 성공").build();
-        return new ResponseEntity<>(message, HttpStatus.OK);
+        return user;
     }
 
     @Override
-    public ResponseEntity<Message> saveUser() {
+    public User saveUser() throws Exception{
         User user = new User();
-        try{
-            user.setName("hong");
-            user.setAge(32);
 
-            Message message = Message.builder().data(userRepository.save(user)).message("호출 성공").build();
+        user.setName("hong");
+        user.setAge(32);
 
-            return new ResponseEntity<>(message, HttpStatus.OK);
-        }catch(Exception e){
-            e.toString();
-            Message message = Message.builder().data(null).message("호출 실패").build();
-
-            return new ResponseEntity<>(message, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return userRepository.save(user);
     }
 
     @Override
-    public ResponseEntity allUserList(){
-
-        Message message = Message.builder().data(userRepository.findAll()).message("호출 성공").build();
-
-        return new ResponseEntity<>(message, HttpStatus.OK);
+    public List<User> allUserList() throws Exception{
+        return userRepository.findAll();
     }
 }

@@ -1,32 +1,31 @@
 package com.intellius.classmate.handler;
 
-import com.intellius.classmate.apiResponse.Message;
+import com.intellius.classmate.apiResponse.ApiResponseMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.security.auth.message.AuthException;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<Message> ExceptionTest(){
-
-        System.out.println("GlobalExceptionHandler.ExceptionTest");
-
-        Message message = new Message();
-        message = Message.builder().data(null).message("id = 1은 요청불가").build();
-
-        return new ResponseEntity<> (message, HttpStatus.BAD_REQUEST);
-    }
 
     @ExceptionHandler(NullPointerException.class)
-    public ResponseEntity<Message> NoUserException(){
+    public ResponseEntity<ApiResponseMessage> NoUserException(){
 
         System.out.println("GlobalExceptionHandler.NoUserException");
+        ApiResponseMessage apiResponseMessage = ApiResponseMessage.builder().data(null).message("존재하지 않는 사용자").build();
 
-        Message message = new Message();
-        message = Message.builder().data(null).message("존재하지 않는 사용자").build();
+        return new ResponseEntity<> (apiResponseMessage, HttpStatus.OK);
+    }
 
-        return new ResponseEntity<> (message, HttpStatus.OK);
+    @ExceptionHandler(AuthException.class)
+    public ResponseEntity<ApiResponseMessage> NoAuthException(){
+
+        System.out.println();
+        ApiResponseMessage apiResponseMessage = ApiResponseMessage.builder().data(null).message("조회권한 없음").build();
+
+        return new ResponseEntity<> (apiResponseMessage, HttpStatus.BAD_REQUEST);
     }
 }

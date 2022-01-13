@@ -4,12 +4,12 @@ import lombok.*;
 
 @Getter@Setter
 @NoArgsConstructor
-public class Message {
+public class ApiResponseMessage {
     private String message;
     private Object data;
 
     @Builder
-    public Message(Object data, String message) {
+    public ApiResponseMessage(Object data, String message) {
         this.data = data;
         this.message = message;
     }
