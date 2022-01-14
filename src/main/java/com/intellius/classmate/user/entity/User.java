@@ -3,10 +3,7 @@ package com.intellius.classmate.user.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 
 @Data
 @NoArgsConstructor
@@ -19,11 +16,14 @@ public class User {
     @Id
     @NotNull
     @NotBlank
+    @Size(max = 100)
     private String id;
 
     @NotNull
     @NotBlank
+    @Size(max = 100)
     private String name;
 
+    @Size(max = 100)
     private String token;
 }
