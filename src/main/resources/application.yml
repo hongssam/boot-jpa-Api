@@ -1,24 +1,38 @@
 spring:
-  h2:
-    console:
-      enabled: true  # H2 웹 콘솔을 사용하겠다는 의미
-      path: /test_db  # 콘솔의 경로
+#  h2:
+#    console:
+#      enabled: true  # H2 웹 콘솔을 사용하겠다는 의미
+#      path: /test_db  # 콘솔의 경로
+#
+#  datasource:
+#    driver-class-name: org.h2.Driver
+#    url: jdbc:h2:file:~/newdb/test_db;AUTO_SERVER=TRUE  #접속 URL
+#    username: test
+#    password: 1234
+#
+#  jpa:
+#    database-platform: org.hibernate.dialect.H2Dialect
+#    open-in-view: false
+#    hibernate:
+#      ddl-auto: create-drop
+#    properties:
+#      hibernate:
+#        show_sql: true
+#        format_sql: true
 
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:file:~/newdb/test_db;AUTO_SERVER=TRUE  #접속 URL
-    username: test
-    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://218.55.66.67:3306/classmate?serverTimezone=UTC&characterEncoding=UTF-8
+    username: classmate
+    password: Inus3e4r#$
 
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     open-in-view: false
+    show-sql: true
     hibernate:
-      ddl-auto: create-drop
-    properties:
-      hibernate:
-        show_sql: true
-        format_sql: true
+      format_sql: true
+      ddl-auto: none
 
   rabbitmq:
     host: localhost

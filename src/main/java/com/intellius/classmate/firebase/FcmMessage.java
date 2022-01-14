@@ -20,18 +20,6 @@ public class FcmMessage {
         private String token;
     }
 
-
-}
-
-/*
-@Builder
-    @AllArgsConstructor
-    @Getter
-    public static class Message{
-        private Notification notification;
-        private String token;
-    }
-
     @Builder
     @AllArgsConstructor
     @Getter
@@ -40,4 +28,8 @@ public class FcmMessage {
         private String title;
     }
 
- */
+
+
+}
+
+

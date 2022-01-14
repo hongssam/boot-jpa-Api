@@ -1,15 +1,15 @@
 package com.intellius.classmate.user.service;
 
+import com.intellius.classmate.apiResponse.ApiResponseMessage;
 import com.intellius.classmate.user.entity.User;
 
 import java.util.List;
-import java.util.Optional;
 
 
 public interface UserService {
-    Optional<User> getUser(Long id) throws Exception;
+    ApiResponseMessage getUser(String id) throws Exception;
 
-    User saveUser() throws Exception;
+    ApiResponseMessage saveUser(User user) throws Exception;
 
-    List<User> allUserList() throws Exception;
+    ApiResponseMessage allUserList() throws Exception;
 }

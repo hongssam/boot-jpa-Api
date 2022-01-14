@@ -3,22 +3,27 @@ package com.intellius.classmate.user.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter @Setter
-@Table(name = "USER")
 @Entity
+@Builder
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @NotNull
+    @NotBlank
+    private String id;
 
-    @Column(name = "NAME")
+    @NotNull
+    @NotBlank
     private String name;
 
-    @Column(name = "AGE")
-    private Integer age;
+    private String token;
 }

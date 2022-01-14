@@ -1,0 +1,15 @@
+### User save
+POST http://localhost:8080/user/save
+Content-Type: application/json
+
+{
+  "id": "123",
+  "name": "123",
+  "token": "AW3#!FAWEFA123"
+}
+
+### User List 조회
+GET http://localhost:8080/user/list
+
+### User Id로 조회
+GET http://localhost:8080/user/search?id=1234
