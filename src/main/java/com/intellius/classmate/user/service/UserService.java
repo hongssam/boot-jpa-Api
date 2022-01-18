@@ -4,12 +4,13 @@ import com.intellius.classmate.apiResponse.ApiResponseMessage;
 import com.intellius.classmate.user.entity.User;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public interface UserService {
-    ApiResponseMessage getUser(String id) throws Exception;
+    ApiResponseMessage saveUser(User user);
 
-    ApiResponseMessage saveUser(User user) throws Exception;
+    List<User> allUserList();
 
-    ApiResponseMessage allUserList() throws Exception;
+    User getUser(String id);
 }

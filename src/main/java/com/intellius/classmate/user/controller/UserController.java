@@ -1,5 +1,6 @@
 package com.intellius.classmate.user.controller;
 
+import com.intellius.classmate.apiResponse.ApiResponse;
 import com.intellius.classmate.apiResponse.ApiResponseMessage;
 import com.intellius.classmate.user.entity.User;
 import com.intellius.classmate.user.service.UserService;
@@ -11,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.ValidationException;
+import java.util.List;
 
 
 @RestController
@@ -19,13 +21,15 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @RequestMapping(method = RequestMethod.GET, value = "/search")
-    public ResponseEntity<ApiResponseMessage> getUser(@RequestParam String id) throws Exception {
-        return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
+    @RequestMapping(method = RequestMethod.GET, value="/getuser")
+    public ApiResponse<User> getUser(String id){
+        // 유효성검증
+        // 서비스 콜
+        return ApiResponse.OK(userService.getUser(id));
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/save")
-    public ResponseEntity<ApiResponseMessage> saveUser(@Validated @RequestBody User user, BindingResult bindingResult) throws Exception {
+    public ResponseEntity<ApiResponseMessage> saveUser(@Validated @RequestBody User user, BindingResult bindingResult){
         if (bindingResult.hasErrors()){
             throw new ValidationException();
         }
@@ -33,7 +37,7 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/list")
-    public ResponseEntity<ApiResponseMessage> allUserList() throws Exception{
-        return  new ResponseEntity<>(userService.allUserList(), HttpStatus.OK);
+    public ApiResponse<List<User>> allUserList(){
+        return ApiResponse.OK(userService.allUserList());
     }
 }

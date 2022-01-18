@@ -1,5 +1,6 @@
 package com.intellius.classmate.user.service.impl;
 
+import com.intellius.classmate.apiResponse.ApiResponse;
 import com.intellius.classmate.apiResponse.ApiResponseMessage;
 import com.intellius.classmate.user.entity.User;
 import com.intellius.classmate.user.entity.User2;
@@ -7,6 +8,9 @@ import com.intellius.classmate.user.repository.UserRepository;
 import com.intellius.classmate.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.swing.text.html.Option;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -15,34 +19,14 @@ public class UserServiceImpl implements UserService {
     UserRepository userRepository;
 
     @Override
-    public ApiResponseMessage getUser(String id) throws Exception{
-        String messageText;
-        Optional<User> user = userRepository.findById(id);
+    public User getUser(String id) {
 
-        if(!user.isPresent()) {
-            messageText = "존재하지 않는 사용자";
-        }else{
-            messageText = "조회 성공";
-        }
-
-        User2 user2 = User2.builder()
-                .userInfo(User2.UserInfo.builder()
-                        .id("123")
-                        .build())
-                .userDetail(User2.UserDetail.builder()
-                        .name("jinpyo")
-                        .token("AWEF123!@#")
-                        .build())
-                .build();
-
-        ApiResponseMessage apiResponseMessage =
-                ApiResponseMessage.builder().data(user).message(messageText).build();
-
-        return apiResponseMessage;
+        return userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundUserException("UserServiceImpl - 29"));
     }
 
     @Override
-    public ApiResponseMessage saveUser(User user) throws Exception{
+    public ApiResponseMessage saveUser(User user){
         String messageText;
 
         if(!userRepository.findById(user.getId()).isPresent()) {
@@ -60,10 +44,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ApiResponseMessage allUserList() throws Exception{
-        ApiResponseMessage apiResponseMessage =
-                ApiResponseMessage.builder().data(userRepository.findAll()).message("호출 성공").build();
-
-        return apiResponseMessage;
+    public List<User> allUserList(){
+        return userRepository.findAll();
     }
 }
